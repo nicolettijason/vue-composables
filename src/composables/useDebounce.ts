@@ -12,11 +12,6 @@ import { useTimeout } from "@/composables/useTimeout";
 export const useDebounce = <T, A extends any[] = []>(fn: (...args: A) => T, delay = 300) => {
     const { start, clear } = useTimeout(fn, delay); // Ensure the useTimeout composable is included
     
-    if (delay <= 0) {
-        console.warn("useDebounce: delay should be greater than 0. 300ms will be used instead.");
-        delay = 300;
-    }
-
     return (...args: A) => {
         clear(); // Clear any existing timeout to reset the debounce period
         start(...args); // Start a new timeout with the provided arguments
